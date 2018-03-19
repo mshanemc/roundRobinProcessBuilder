@@ -1,0 +1,18 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "id" : "0Ho6A000000001iSAA",
+      "versionName": "v 1",
+      "versionDescription": "apex action with no tests",
+      "versionNumber": "1.0.0.NEXT"
+    },
+    {
+      "path": "implementation",
+      "default": true
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "42.0"
+}

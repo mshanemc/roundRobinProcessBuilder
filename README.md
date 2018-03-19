@@ -15,7 +15,7 @@ Assign the object to members of the group, sequentially ("round-robin") the obje
 5. Optionally, put in the API name of a field you'd like to use **instead of** ornwerId (the default).
 
 
----
+
 
 ## Behind the scenes
 
@@ -23,7 +23,12 @@ It's automatically creating a custom setting for each comination of object/field
 
 There should be no reason to touch this setting unless you feel like deleting something no longer in use.
 
----
+
+## no code install
+
+It's a developer controlled package.  Use the `SubscriberPackageVersionId` from latestVersion.
+put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBGQA0` where 04t6A000002HkBGQA0 is that `SubscriberPackageVersionId`
+
 
 ## Support
 

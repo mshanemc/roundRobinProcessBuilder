@@ -27,6 +27,7 @@ There should be no reason to touch this setting unless you feel like deleting so
 ## no code install
 
 It's a developer controlled package.  Use the `SubscriberPackageVersionId` from latestVersion.
+
 put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBGQA0` where 04t6A000002HkBGQA0 is that `SubscriberPackageVersionId`
 
 

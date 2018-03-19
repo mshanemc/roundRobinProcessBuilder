@@ -30,6 +30,9 @@ It's a developer controlled package.  Use the `SubscriberPackageVersionId` from 
 
 put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBGQA0` where 04t6A000002HkBGQA0 is that `SubscriberPackageVersionId`
 
+## sfdx install
+
+`sfdx force:package:install -r -p 20 -w 20 -i [latestVersion.SubscriberPackageVersionId] -u [orgAlias/username]`
 
 ## Support
 

@@ -1,4 +1,4 @@
-public with sharing class roundRobinAssigner {
+public without sharing class roundRobinAssigner {
 
     @InvocableMethod(label='Assign objects')
 	public static void assign(list<RoundRobinAssignment> rras) {

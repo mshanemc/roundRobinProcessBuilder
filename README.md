@@ -23,6 +23,7 @@ It's automatically creating a custom setting for each comination of object/field
 
 There should be no reason to touch this setting unless you feel like deleting something no longer in use.
 
+I used the dreaded `without sharing` keyword because I ran into a scenario where process builder was triggered by an action in a customer community (whose users don't have groupMember object access) and so an error was being thrown
 
 ## no code install
 

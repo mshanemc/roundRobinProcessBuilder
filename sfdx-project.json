@@ -1,18 +1,23 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "id" : "0Ho6A000000001iSAA",
-      "versionName": "v 1",
-      "versionDescription": "apex action with no tests",
-      "versionNumber": "1.2.0.NEXT"
-    },
-    {
-      "path": "implementation",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "package": "pb_RoundRobin",
+            "versionName": "v 1",
+            "versionDescription": "apex action with tests",
+            "versionNumber": "1.5.0.NEXT"
+        },
+        {
+            "path": "implementation",
+            "default": true
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "42.0",
+    "packageAliases": {
+        "pb_RoundRobin": "0Ho6A000000001iSAA",
+        "pb_RoundRobin@1.3.0-1": "04t6A0000038F2dQAE",
+        "pb_RoundRobin@1.5.0-1": "04t6A0000038F2iQAE"
     }
-  ],
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "42.0"
 }

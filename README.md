@@ -1,6 +1,7 @@
 # Round robin assignments of any object via Process Builder and Public Groups
 
 Assuming you have
+
 * a group (`Users > Public Groups`, **not Chatter Groups**) with at least 1 user in it
 * some object that has an ownerId field OR a user lookup (that is, not child of a master detail relationship!)
 
@@ -14,9 +15,6 @@ Assign the object to members of the group, sequentially ("round-robin") the obje
 4. Specify the group name (label, not API name) and the recordId (both are required)
 5. Optionally, put in the API name of a field you'd like to use **instead of** ornwerId (the default).
 
-
-
-
 ## Behind the scenes
 
 It's automatically creating a custom setting for each comination of object/field/group and tracking which group member received the last assignment.
@@ -27,16 +25,20 @@ I used the dreaded `without sharing` keyword because I ran into a scenario where
 
 ## no code install
 
-It's a developer controlled package.  Use the `SubscriberPackageVersionId` from latestVersion.
+It's a developer controlled package.  Use the `04t...` from the latest version in sfdx-project.json.
 
-put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBGQA0` where 04t6A000002HkBGQA0 is that `SubscriberPackageVersionId`
+put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBGQA0` where 04t6A000002HkBGQA0 is that `04t`
 
 ## sfdx install
 
-`sfdx force:package:install -r -p 20 -w 20 -i [latestVersion.SubscriberPackageVersionId] -u [orgAlias/username]`
+core sfdx
+
+`sfdx force:package:install -r -p 20 -w 20 -i [get the versionId from the sfdx-project.json file -u [orgAlias/username]`
+
+alternatively, if you're using [my sfdx plugin](https://github.com/mshanemc/shane-sfdx-plugins) it's just
+
+`sfdx shane:github:package:install -g mshanemc -r roundRobinAssigner -u [orgAlias/username]`
 
 ## Support
 
 There is none.
-
-

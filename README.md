@@ -2,7 +2,7 @@
 
 Assuming you have
 
-* a group (`Users > Public Groups`, **not Chatter Groups**) with at least 1 user in it
+* a group (`Users > Public Groups`, **not Chatter Groups**, **Not any of the generic groups like "All Internal Users**) with at least 1 user in it
 * some object that has an ownerId field OR a user lookup (that is, not child of a master detail relationship!)
 
 Assign the object to members of the group, sequentially ("round-robin") the object via Process Builder

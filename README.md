@@ -1,5 +1,10 @@
 # Round robin assignments of any object via Process Builder and Public Groups
 
+
+[Latest Manage Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t46000001hhYrAAI)
+
+## What is it?
+
 Assuming you have
 
 * a group (`Users > Public Groups`, **not Chatter Groups**, **Not any of the generic groups like "All Internal Users**) with at least 1 user in it

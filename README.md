@@ -23,6 +23,12 @@ There should be no reason to touch this setting unless you feel like deleting so
 
 I used the dreaded `without sharing` keyword because I ran into a scenario where process builder was triggered by an action in a customer community (whose users don't have groupMember object access) and so an error was being thrown
 
+## Quirks
+
+Because of how I'm creating a unique tracker for each setting (using object/field/group) if you have some really long descriptive names it's possible to overflow the allowed length for a custom setting name (40), so that's capped at 40 char.  This may result in truncation in the custom settings name.
+
+That doesn't impact the functionality but might make it harder for an admin to look through the custom settings and know which one is which
+
 ## no code install
 
 It's a developer controlled package.  Use the `04t...` from the latest version in sfdx-project.json.
@@ -33,7 +39,7 @@ put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBG
 
 core sfdx
 
-`sfdx force:package:install -r -p 20 -w 20 -i [get the versionId from the sfdx-project.json file -u [orgAlias/username]`
+`sfdx force:package:install -r -p 20 -w 20 -i [get the versionId from the sfdx-project.json file] -u [orgAlias/username]`
 
 alternatively, if you're using [my sfdx plugin](https://github.com/mshanemc/shane-sfdx-plugins) it's just
 
@@ -41,4 +47,4 @@ alternatively, if you're using [my sfdx plugin](https://github.com/mshanemc/shan
 
 ## Support
 
-There is none.
+Log an issue here in github.  Not an officially supported Salesforce product, just sharing to be a nice person.

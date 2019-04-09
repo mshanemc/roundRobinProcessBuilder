@@ -8,7 +8,7 @@
             </value>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>assignment</label>
+        <label>Assign</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
         <actionName>roundRobinAssigner</actionName>
@@ -65,7 +65,7 @@
             <processMetadataValues>
                 <name>isRequired</name>
                 <value>
-                    <booleanValue>false</booleanValue>
+                    <booleanValue>true</booleanValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -77,7 +77,7 @@
             <processMetadataValues>
                 <name>maxOccurs</name>
                 <value>
-                    <numberValue>1.0</numberValue>
+                    <numberValue>0.0</numberValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -95,6 +95,48 @@
             <name>recordId</name>
             <value>
                 <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>field name (default = ownerId)</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>fieldName</name>
+            <value>
+                <stringValue>UserAssignmentTest__c</stringValue>
             </value>
         </inputParameters>
     </actionCalls>
@@ -147,12 +189,12 @@
         <dataType>Boolean</dataType>
         <expression>true</expression>
     </formulas>
-    <interviewLabel>TestAssigner-1_InterviewLabel</interviewLabel>
-    <label>TestAssigner</label>
+    <interviewLabel>TestAssignerContactField-1_InterviewLabel</interviewLabel>
+    <label>TestAssignerContactField</label>
     <processMetadataValues>
         <name>ObjectType</name>
         <value>
-            <stringValue>Account</stringValue>
+            <stringValue>Contact</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -181,7 +223,7 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-        <objectType>Account</objectType>
+        <objectType>Contact</objectType>
     </variables>
     <variables>
         <name>myVariable_old</name>
@@ -189,7 +231,7 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
-        <objectType>Account</objectType>
+        <objectType>Contact</objectType>
     </variables>
     <variables>
         <name>myVariable_waitStartTimeVariable</name>
@@ -201,4 +243,5 @@
             <elementReference>$Flow.CurrentDateTime</elementReference>
         </value>
     </variables>
+    <status>Obsolete</status>
 </Flow>

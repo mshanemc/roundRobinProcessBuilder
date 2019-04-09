@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <name>ApexClass</name>
+    <members>roundRobinAssigner</members>
+    <members>roundRobinTests</members>
+  </types>
+  <types>
+    <name>CustomObject</name>
+    <members>RoundRobin__c</members>
+  </types>
+  <types>
+    <name>CustomField</name>
+    <members>RoundRobin__c.FieldName__c</members>
+    <members>RoundRobin__c.GroupName__c</members>
+    <members>RoundRobin__c.IndexOfLastUsed__c</members>
+    <members>RoundRobin__c.Object__c</members>
+  </types>
+  <version>45.0</version>
+  <fullName>RoundRobinAssigner</fullName>
+</Package>

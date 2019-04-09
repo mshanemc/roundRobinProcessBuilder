@@ -14,7 +14,7 @@
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "42.0",
+    "sourceApiVersion": "45.0",
     "packageAliases": {
         "pb_RoundRobin": "0Ho6A000000001iSAA",
         "pb_RoundRobin@1.3.0-1": "04t6A0000038F2dQAE",

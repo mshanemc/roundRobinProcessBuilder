@@ -46,6 +46,15 @@ public with sharing class roundRobinTests {
         )
         .length()
     );
+    System.assertEquals(
+      40,
+      roundRobinAssigner.nameShortener(
+          'hed__Program_Enrollment__c',
+          'cd_Advisor__c',
+          'Design & Technology'
+        )
+        .length()
+    );
   }
 
   @isTest

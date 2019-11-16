@@ -8,8 +8,6 @@ public without sharing class roundRobinAssigner {
         // what was the last user index?
         list<RoundRobin__c> RRSettings = [select id, GroupName__c, FieldName__c, Object__c, IndexOfLastUsed__c from RoundRobin__c];
 
-        set<Id> recordIds = new set<Id>();
-
         map<string, list<GroupMember>> usersByGroup = new map<string, list<GroupMember>>();
         List<SObject> objectList = new List<SObject>();
 

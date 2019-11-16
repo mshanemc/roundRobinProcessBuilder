@@ -6,6 +6,7 @@
   "scripts": {
     "build": "sfdx shane:org:delete; ./orgInit.sh",
     "destroy": "sfdx shane:org:delete",
+    "prettier": "prettier",
     "publish": "sfdx shane:package2:version:bump -m -c -r"
   },
   "repository": {
@@ -17,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/mshanemc/roundRobinProcessBuilder/issues"
   },
-  "homepage": "https://github.com/mshanemc/roundRobinProcessBuilder#readme"
+  "homepage": "https://github.com/mshanemc/roundRobinProcessBuilder#readme",
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "prettier-plugin-apex": "^1.0.0"
+  }
 }

@@ -1,5 +1,5 @@
 public without sharing class roundRobinAssigner {
-  public static final integer customSettingNameLimitLength = 40;
+  public static final integer customSettingNameLimitLength = 38;
 
   @InvocableMethod(label='Assign objects')
   public static void assign(list<RoundRobinAssignment> rras) {
@@ -77,7 +77,9 @@ public without sharing class roundRobinAssigner {
     RoundRobin__c match,
     list<GroupMember> groupUsers
   ) {
-    if (match.IndexOfLastUsed__c == null) {
+    if (groupUsers.size() == 0) throw new IllegalArgumentException(
+                'Round Robin Assigner: No members of ' + match.GroupName__c + ' found');
+    else if (match.IndexOfLastUsed__c == null) {
       // it's null, so grab the first one!
       return 0;
     } else if (match.IndexOfLastUsed__c >= groupUsers.size() - 1) {
@@ -135,23 +137,17 @@ public without sharing class roundRobinAssigner {
       GroupName.length() +
       2 -
       customSettingNameLimitLength; // for separators
-    if (tooLongness <= 0) {
-      return Obj + '-' + FieldName + '-' + GroupName;
-    }
+    while (tooLongness > 0) {
+      if (Obj.length() > 10) Obj = Obj.left(Obj.length() - 1);
+      if (FieldName.length() > 10) FieldName = FieldName.left(FieldName.length() - 1);
+      if (GroupName.length() > 10) GroupName = GroupName.left(GroupName.length() - 1);
 
-    integer wholesToChop = Math.round(Math.floor(tooLongness / 3));
-    integer remainderToChop = Math.mod(tooLongness, 3);
-
-    Obj = Obj.left(Obj.length() - wholesToChop);
-    FieldName = FieldName.left(FieldName.length() - wholesToChop);
-    GroupName = GroupName.left(GroupName.length() - wholesToChop);
-
-    if (remainderToChop > 0) {
-      GroupName = GroupName.left(GroupName.length() - 1);
-    }
-
-    if (remainderToChop > 1) {
-      FieldName = FieldName.left(FieldName.length() - 1);
+      tooLongness =
+        Obj.length() +
+        FieldName.length() +
+        GroupName.length() +
+        2 -
+        customSettingNameLimitLength;
     }
 
     return Obj + '-' + FieldName + '-' + GroupName;

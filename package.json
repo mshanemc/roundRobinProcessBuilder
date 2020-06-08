@@ -7,7 +7,8 @@
     "build": "sfdx shane:org:delete; ./orgInit.sh",
     "destroy": "sfdx shane:org:delete",
     "prettier": "prettier",
-    "publish": "sfdx shane:package2:version:bump -m -c -r"
+    "publish": "sfdx shane:package2:version:bump -m -c -r",
+    "packaging": "sfdx force:source:deploy -p force-app -u ltngSharingPkg && sfdx force:source:deploy -p force-app -u rrqa"
   },
   "repository": {
     "type": "git",

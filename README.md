@@ -1,13 +1,14 @@
 # Round robin assignments of any object via Process Builder and Public Groups
 
 [Latest Manage Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t46000001hhYrAAI)
+[Latest Unlocked Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t3u0000038OBmAAM)
 
 ## What is it
 
 Assuming you have
 
-* a group (`Users > Public Groups`, **not Chatter Groups**, **Not any of the generic groups like "All Internal Users**) with at least 1 user in it
-* some object that has an ownerId field OR a user lookup (that is, not child of a master detail relationship!)
+- a group (`Users > Public Groups`, **not Chatter Groups**, **Not any of the generic groups like "All Internal Users**) with at least 1 user in it
+- some object that has an ownerId field OR a user lookup (that is, not child of a master detail relationship!)
 
 Assign the object to members of the group, sequentially ("round-robin") the object via Process Builder
 
@@ -29,13 +30,13 @@ I used the dreaded `without sharing` keyword because I ran into a scenario where
 
 ## Quirks
 
-Because of how I'm creating a unique tracker for each setting (using object/field/group) if you have some really long descriptive names it's possible to overflow the allowed length for a custom setting name (40), so that's capped at 40 char.  This may result in truncation in the custom settings name.
+Because of how I'm creating a unique tracker for each setting (using object/field/group) if you have some really long descriptive names it's possible to overflow the allowed length for a custom setting name (40), so that's capped at 40 char. This may result in truncation in the custom settings name.
 
 That doesn't impact the functionality but might make it harder for an admin to look through the custom settings and know which one is which
 
 ## no code install
 
-It's a developer controlled package.  Use the `04t...` from the latest version in sfdx-project.json.
+It's a developer controlled package. Use the `04t...` from the latest version in sfdx-project.json.
 
 put that in your url like `/packagingSetupUI/ipLanding.app?apvId=04t6A000002HkBGQA0` where 04t6A000002HkBGQA0 is that `04t`
 
@@ -51,4 +52,4 @@ alternatively, if you're using [my sfdx plugin](https://github.com/mshanemc/shan
 
 ## Support
 
-Log an issue here in github.  Not an officially supported Salesforce product, just sharing to be a nice person.
+Log an issue here in github. Not an officially supported Salesforce product, just sharing to be a nice person.

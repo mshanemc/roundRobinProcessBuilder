@@ -9,7 +9,7 @@ public with sharing class roundRobinTests {
     );
     // remainder 2
     System.assertEquals(
-      40,
+      38,
       roundRobinAssigner.nameShortener(
           '123456789012345',
           '123456789012345',
@@ -19,7 +19,7 @@ public with sharing class roundRobinTests {
     );
     // remainder 1
     System.assertEquals(
-      40,
+      37,
       roundRobinAssigner.nameShortener(
           '123456789012345',
           '123456789012345',
@@ -29,7 +29,7 @@ public with sharing class roundRobinTests {
     );
     // remainder 0
     System.assertEquals(
-      40,
+      36,
       roundRobinAssigner.nameShortener(
           '123456789012345',
           '12345678901234',
@@ -38,7 +38,7 @@ public with sharing class roundRobinTests {
         .length()
     );
     System.assertEquals(
-      40,
+      38,
       roundRobinAssigner.nameShortener(
           '1234467443456789012345',
           '123456789343487476401234',
@@ -47,7 +47,7 @@ public with sharing class roundRobinTests {
         .length()
     );
     System.assertEquals(
-      40,
+      38,
       roundRobinAssigner.nameShortener(
           'hed__Program_Enrollment__c',
           'cd_Advisor__c',
@@ -55,6 +55,14 @@ public with sharing class roundRobinTests {
         )
         .length()
     );
+    System.assertEquals(
+      38,
+      roundRobinAssigner.nameShortener(
+          '1234467443456789012345',
+          '12345',
+          '1234567893498374348764387638763401234'
+        )
+        .length());
   }
 
   @isTest

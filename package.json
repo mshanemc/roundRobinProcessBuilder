@@ -8,7 +8,7 @@
     "destroy": "sfdx shane:org:delete",
     "prettier": "prettier",
     "publish": "sfdx shane:package2:version:bump -m -c -r",
-    "packaging": "sfdx force:source:deploy -p force-app -u ltngSharingPkg && sfdx force:source:deploy -p force-app -u rrqa"
+    "packaging": "sfdx force:source:deploy -p force-app -u ltngSharingPkg; sfdx force:package1:version:create -w 59 -u ltngSharingPkg -i 03346000000E0RY -m -r https://github.com/mshanemc/roundRobinProcessBuilder -n ${npm_config_pkgName} "
   },
   "repository": {
     "type": "git",

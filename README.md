@@ -1,6 +1,6 @@
 # Round robin assignments of any object via Process Builder and Public Groups
 
-[Latest Manage Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t46000001hhYrAAI)
+[Latest Manage Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t46000001UOgyAAG)
 [Latest Unlocked Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t3u0000038OBmAAM)
 
 ## What is it
@@ -18,11 +18,11 @@ Assign the object to members of the group, sequentially ("round-robin") the obje
 2. Apex Action, call it whatever you like
 3. Select `Assign Objects` from the apex classes
 4. Specify the group name (label, not API name) and the recordId (both are required)
-5. Optionally, put in the API name of a field you'd like to use **instead of** ornwerId (the default).
+5. Optionally, put in the API name of a field you'd like to use **instead of** ownerId (the default).
 
 ## Behind the scenes
 
-It's automatically creating a custom setting for each comination of object/field/group and tracking which group member received the last assignment.
+It's automatically creating a custom setting for each combination of object/field/group and tracking which group member received the last assignment.
 
 There should be no reason to touch this setting unless you feel like deleting something no longer in use.
 

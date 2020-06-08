@@ -1,7 +1,7 @@
 # Round robin assignments of any object via Process Builder and Public Groups
 
-[Latest Manage Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t46000001UOgyAAG)
-[Latest Unlocked Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t3u0000038OBmAAM)
+- [Latest Manage Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t46000001UOgyAAG)
+- [Latest Unlocked Package Install Link](https://login.salesforce.com/packagingSetupUI/ipLanding.app?apvId=04t3u0000038OBmAAM)
 
 ## What is it
 

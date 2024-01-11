@@ -1,82 +1,89 @@
 public without sharing class roundRobinAssigner {
   public static final integer customSettingNameLimitLength = 38;
 
+  // Invocable method to be called from Process Builder or Flow
   @InvocableMethod(label='Assign objects')
-  public static void assign(list<RoundRobinAssignment> rras) {
-    // what was the last user index?
-    list<RoundRobin__c> RRSettings = [
-      SELECT id, GroupName__c, FieldName__c, Object__c, IndexOfLastUsed__c
+  public static void assign(List<RoundRobinAssignment> rras) {
+    if(rras.isEmpty()) {
+        return; // Exit if there are no assignments to process
+    }
+
+    // Retrieve existing RoundRobin settings
+    List<RoundRobin__c> RRSettings = [
+      SELECT Id, GroupName__c, FieldName__c, Object__c, IndexOfLastUsed__c
       FROM RoundRobin__c
     ];
 
-    map<string, list<GroupMember>> usersByGroup = new Map<string, list<GroupMember>>();
-    List<SObject> objectList = new List<SObject>();
-
-    // get the records
+    // Collect all unique group names from assignments
+    Set<String> groupNames = new Set<String>();
     for (RoundRobinAssignment rra : rras) {
-      // default field
-      if (rra.fieldName == null) {
-        rra.fieldName = 'OwnerId';
-      }
-
-      list<groupMember> groupUsers = new List<groupMember>();
-      // see if we have it already in our map
-      if (usersByGroup.get(rra.groupName) == null) {
-        groupUsers = [
-          SELECT Group.Name, GroupId, UserOrGroupId
-          FROM GroupMember
-          WHERE Group.Name = :rra.groupName
-        ];
-        //store in the map so we don't have to query about this group again
-        usersByGroup.put(rra.groupName, groupUsers);
-      } else {
-        groupUsers = usersByGroup.get(rra.groupName);
-      }
-      // what kind of object is this, anyway?
-      Id rId = id.valueOf(rra.recordId);
-      string Obj = rid.getSObjectType().getDescribe().getName();
-
-      RoundRobin__c matchingRR = recordMatcher(
-        RRSettings,
-        rra.fieldName,
-        Obj,
-        rra.groupName
-      );
-
-      sObject so = rid.getSObjectType().newSObject(rid);
-      integer nextIndex = getNextIndex(matchingRR, groupUsers);
-      so.put(rra.fieldName, groupUsers[nextIndex].UserOrGroupId);
-
-      matchingRR.IndexOfLastUsed__c = nextIndex;
-
-      // if the original list didn't contain the matching one, we need to add it here
-      boolean isNew = true;
-      for (RoundRobin__c rr : RRSettings) {
-        // we already had that on our list
-        if (rr.Id == matchingRR.Id) {
-          rr.IndexOfLastUsed__c = matchingRR.IndexOfLastUsed__c;
-          isNew = false;
-        }
-      }
-      if (isNew) {
-        //we hadn't seen it before
-        system.debug('inserting a RR custom setting');
-        RRSettings.add(matchingRR);
-      }
-
-      objectList.add(so);
+        groupNames.add(rra.groupName);
     }
 
-    update objectList;
+    // Bulk fetch GroupMember records for each group
+    Map<String, List<GroupMember>> usersByGroup = new Map<String, List<GroupMember>>();
+    for (GroupMember gm : [SELECT Group.Name, GroupId, UserOrGroupId FROM GroupMember WHERE Group.Name IN :groupNames]) {
+      if (!usersByGroup.containsKey(gm.Group.Name)) {
+        usersByGroup.put(gm.Group.Name, new List<GroupMember>());
+      }
+      usersByGroup.get(gm.Group.Name).add(gm);
+    }
 
-    // because we may have incremented them
+    List<SObject> objectList = new List<SObject>();
+    Map<String, RoundRobin__c> newRRSettingsMap = new Map<String, RoundRobin__c>();
+
+    for (RoundRobinAssignment rra : rras) {
+      // Default to 'OwnerId' if fieldName is not specified
+      String fieldName = rra.fieldName != null ? rra.fieldName : 'OwnerId';
+      Id rId = Id.valueOf(rra.recordId);
+      String Obj = rId.getSObjectType().getDescribe().getName();
+
+      // Generate unique name for new RoundRobin setting
+      String uniqueName = nameShortener(Obj, fieldName, rra.groupName);
+      RoundRobin__c matchingRR = newRRSettingsMap.get(uniqueName);
+
+      // Find or create a new RoundRobin setting for the assignment
+      if (matchingRR == null) {
+        matchingRR = findMatchingRR(RRSettings, fieldName, Obj, rra.groupName);
+        if (matchingRR == null) {
+          matchingRR = new RoundRobin__c(
+            FieldName__c = fieldName,
+            Object__c = Obj,
+            GroupName__c = rra.groupName,
+            Name = uniqueName
+          );
+          newRRSettingsMap.put(uniqueName, matchingRR);
+        }
+      }
+
+      // Create SObject record to update and add to objectList
+      SObject recordToUpdate = rId.getSObjectType().newSObject(rId);
+      List<GroupMember> groupUsers = usersByGroup.get(rra.groupName);
+      Integer nextIndex = getNextIndex(matchingRR, groupUsers);
+      recordToUpdate.put(fieldName, groupUsers[nextIndex].UserOrGroupId);
+      matchingRR.IndexOfLastUsed__c = nextIndex;
+
+      objectList.add(recordToUpdate);
+    }
+
+    // Perform bulk DML operations outside of the loop
+    update objectList;
+    insert newRRSettingsMap.values();
     update RRSettings;
   }
 
-  public static integer getNextIndex(
-    RoundRobin__c match,
-    list<GroupMember> groupUsers
-  ) {
+  // Helper method to find a matching RoundRobin setting
+  private static RoundRobin__c findMatchingRR(List<RoundRobin__c> records, String fieldName, String objName, String groupName) {
+      for (RoundRobin__c rr : records) {
+          if (rr.FieldName__c == fieldName && rr.Object__c == objName && rr.GroupName__c == groupName) {
+              return rr;
+          }
+      }
+      return null;
+  }
+  
+  // Determine the next index for Round Robin assignment
+  public static integer getNextIndex( RoundRobin__c match, list<GroupMember> groupUsers) {
     if (groupUsers.size() == 0) throw new IllegalArgumentException(
                 'Round Robin Assigner: No members of ' + match.GroupName__c + ' found');
     else if (match.IndexOfLastUsed__c == null) {
@@ -96,36 +103,9 @@ public without sharing class roundRobinAssigner {
       return integer.valueOf(match.IndexOfLastUsed__c + 1);
     }
   }
-
-  public static RoundRobin__c recordMatcher(
-    list<RoundRobin__c> records,
-    string FieldName,
-    string Obj,
-    string GroupName
-  ) {
-    for (RoundRobin__c rr : records) {
-      if (
-        rr.FieldName__c == FieldName &&
-        rr.Object__c == Obj &&
-        rr.GroupName__c == GroupName
-      ) {
-        return rr;
-      }
-    }
-
-    // we never found it, so create one
-    RoundRobin__c rrNew = new RoundRobin__c();
-    rrNew.FieldName__c = FieldName;
-    rrNew.Object__c = Obj;
-    rrNew.GroupName__c = GroupName;
-    // because name is required
-    rrNew.Name = nameShortener(Obj, FieldName, GroupName);
-
-    // how "too long" is it?
-    insert rrNew;
-    return rrNew;
-  }
-
+  
+    
+  // Shortens the composite name to fit within the character limit
   public static string nameShortener(
     string Obj,
     string FieldName,
@@ -152,8 +132,8 @@ public without sharing class roundRobinAssigner {
 
     return Obj + '-' + FieldName + '-' + GroupName;
   }
-
-  //what Process Builder/Flow Builder can reference for the input variables
+  
+   // Inner class to represent each assignment operation
   public class RoundRobinAssignment {
     @InvocableVariable(required=true label='group name')
     public string groupName;
@@ -165,3 +145,4 @@ public without sharing class roundRobinAssigner {
     public string fieldName;
   }
 }
+  
